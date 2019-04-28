@@ -7,7 +7,6 @@ export default class List extends React.Component {
     let listTemplate;
 
     if (data.length) {
-      console.log(data);
       listTemplate = data.map(function(item, i) {
         return (
           <div className="masonry-brick masonry-brick_h movie-block" key={i}>

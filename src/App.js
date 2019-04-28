@@ -15,7 +15,7 @@ export default class App extends React.Component {
   fetchData = () => {
     axios.get(url)
     .then(response => {
-      console.log(response.data);
+      
       let list = response.data.films;
       let years = list.map(item => item.year);
       let result = [];
@@ -35,24 +35,56 @@ export default class App extends React.Component {
 
   handleSortYears = () => {
     let list = this.state.list;
-    list.sort((a, b) => {
-      return b[0].year - a[0].year;
-    });
-    this.setState({list: list});
+
+    if (this.state.years === "asc") {
+      list.sort((a, b) => {
+        return b[0].year - a[0].year;
+      });
+      this.setState({
+        list: list,
+        years: 'desc'
+      });
+    } else {
+      list.sort((a, b) => {
+        return a[0].year - b[0].year;
+      });
+      this.setState({
+        list: list,
+        years: 'asc'
+      });
+    }
   };
 
   handleSortRating = () => {
     let list = this.state.list;
-    list.forEach(function(item){
-      item.sort((a, b) => {
-        return a.rating - b.rating;
+
+    if (this.state.ratings === "asc") {
+      list.forEach(function(item){
+        item.sort((a, b) => {
+          return b.rating - a.rating;
+        });
       });
-    });
-    this.setState({list: list});
+      this.setState({
+        list: list,
+        ratings: 'desc'
+      });
+    } else {
+      list.forEach(function(item){
+        item.sort((a, b) => {
+          return a.rating - b.rating;
+        });
+      });
+      this.setState({
+        list: list,
+        ratings: 'asc'
+      });
+    }
   }
 
   state = {
-    list: ''
+    list: '',
+    years: 'asc',
+    ratings: 'desc'
   };
 
   render() {
@@ -64,8 +96,15 @@ export default class App extends React.Component {
               <img className="header__img" src={logo} alt="logo"/> 
             </div>
             <div className="header__sort">
-              <button onClick={this.handleSortYears}>Sort By Years</button>  
-              <button onClick={this.handleSortRating}>Sort By Rating</button>  
+              <span className="header__sort-txt">Сортировать по:</span>    
+              <button className="header__sort-btn" onClick={this.handleSortYears}>
+                Годам
+                <span className={`header__sort-icon header__sort-icon_${this.state.years}`}></span>
+              </button>  
+              <button className="header__sort-btn" onClick={this.handleSortRating}>
+                Рейтингу
+                <span className={`header__sort-icon header__sort-icon_${this.state.ratings}`}></span>
+              </button>  
             </div>  
           </div>
         </header>

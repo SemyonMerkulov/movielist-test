@@ -29,9 +29,58 @@
 .header__logo {
   background:#ff5086;
   padding: 0 10px;
-  line-height: 65px;
+  line-height: 60px;
   height: 100%;
-  width: 110px;
+  width: 85px;
+}
+
+.header__sort {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.header__sort-btn {
+  background: transparent;
+  border: transparent;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
+  color: #333;
+  font-size: 13px;
+  margin: 0 5px;
+  outline: none;
+  padding: 0;
+}
+.header__sort-btn:hover {
+  text-decoration: underline;
+}
+
+.header__sort-icon {
+  border-style: solid;
+  
+  display: inline-block;
+  margin-left: 4px;
+  height: 0;
+  width: 0;
+  vertical-align: middle;
+}
+
+.header__sort-icon_asc {
+  border-width: 0 3px 5px 3px;
+  border-color: transparent transparent #333333 transparent;
+}
+
+.header__sort-icon_desc {
+  border-width: 5px 3px 0 3px;
+  border-color: #333333 transparent transparent transparent;
+}
+
+
+.header__sort-txt {
+  font-size: 13px;
+  margin-right: 6px;
 }
 
 .header__img {
@@ -47,6 +96,9 @@
 
 .movie-block {
   text-align: left;
+}
+.movie-block__content {
+  margin-bottom: 10px;
 }
 
 .movie-block__header {
