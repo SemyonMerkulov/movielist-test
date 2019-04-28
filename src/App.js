@@ -8,6 +8,7 @@ import axios from 'axios';
 const url = 'https://s3-eu-west-1.amazonaws.com/sequeniatesttask/films.json';
 
 export default class App extends React.Component {
+
   componentDidMount() {
     this.fetchData();
   }
@@ -15,7 +16,7 @@ export default class App extends React.Component {
   fetchData = () => {
     axios.get(url)
     .then(response => {
-      
+
       let list = response.data.films;
       let years = list.map(item => item.year);
       let result = [];
@@ -26,10 +27,18 @@ export default class App extends React.Component {
         let array = list.filter(elem => elem.year === item);  
         if (array.length) { result.push(array) };
       });
-      this.setState({list: result});
+      this.setState({
+        list: result,
+        isLoading: false
+      });
     })
     .catch(error => {
       console.log(error);
+      this.setState({
+        isLoading: false,
+        errorStatus: error.response.status,
+        errorText: error.response.statusText
+      });
     })
   }
 
@@ -84,10 +93,14 @@ export default class App extends React.Component {
   state = {
     list: '',
     years: 'asc',
-    ratings: 'desc'
+    ratings: 'desc',
+    isLoading: true,
+    errorStatus: '',
+    errorText: ''
   };
 
   render() {
+    const {isLoading, list, errorStatus, errorText} = this.state
     return (
       <div className="app">
         <header className="header">
@@ -109,8 +122,15 @@ export default class App extends React.Component {
           </div>
         </header>
         <div className="container">
-          <List data={this.state.list}/>
-        </div>       
+          <List data={list}/>
+          {errorStatus && 
+            <div className="error">
+              <p className="error__status">{errorStatus}</p>
+              <p className="error__text">{errorText}</p>
+            </div>
+          }  
+        </div>
+        {isLoading && <div className="preloader"></div>}
       </div>
     );
   }

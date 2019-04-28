@@ -2,11 +2,12 @@ import React from 'react';
 import ListItem from './ListItem';
 
 export default class List extends React.Component {
+  
   renderYears = () => {
     const { data } = this.props;
     let listTemplate;
 
-    if (data.length) {
+    if (data.length) {;
       listTemplate = data.map(function(item, i) {
         return (
           <div className="masonry-brick masonry-brick_h movie-block" key={i}>
@@ -19,15 +20,12 @@ export default class List extends React.Component {
           </div>   
         )
       })
-    } else {
-      listTemplate = <p>Oops, something went wrong</p>;
-    }
+    } 
 
     return listTemplate;
   };
 
   render (){
-
     return (
       <div className="masonry masonry_h">
         {this.renderYears()}
